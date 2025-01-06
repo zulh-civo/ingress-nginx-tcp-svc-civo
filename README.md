@@ -13,7 +13,7 @@ A short guide on how to use Ingress Nginx Helm Chart to expose the following por
 1. Clone this repo
 
     ```
-    $ git clone ...
+    $ git clone https://github.com/zulh-civo/ingress-nginx-tcp-svc-civo.git
     ```
 
 2. Change directory to clone repo
