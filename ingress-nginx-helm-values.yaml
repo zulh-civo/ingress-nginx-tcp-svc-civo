@@ -1,5 +1,6 @@
 controller:
   service:
-    enabled: false
-  extraArgs:
-    tcp-services-configmap: $(POD_NAMESPACE)/tcp-services
+    annotations:
+      kubernetes.civo.com/protocol: tcp
+tcp:
+  "6379": "redis/redis:6379"

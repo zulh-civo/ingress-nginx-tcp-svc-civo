@@ -1,34 +1,7 @@
 apiVersion: v1
-kind: Service
+kind: Namespace
 metadata:
-  name: ingress-nginx-controller-loadbalancer
-  namespace: ingress-nginx
-  annotations:
-    kubernetes.civo.com/protocol: tcp
-spec:
-  selector:
-    app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: ingress-nginx
-    app.kubernetes.io/name: ingress-nginx
-  ports:
-    - name: http
-      port: 80
-      targetPort: 80
-    - name: https
-      port: 443
-      targetPort: 443
-    - name: redis
-      port: 6379
-      targetPort: 6379
-  type: LoadBalancer
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: tcp-services
-  namespace: ingress-nginx
-data:
-  "6379": redis/redis:6379
+  name: nginx
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -36,7 +9,7 @@ metadata:
   labels:
     app: nginx
   name: nginx
-  namespace: default
+  namespace: nginx
 spec:
   replicas: 3
   selector:
@@ -60,7 +33,7 @@ metadata:
   labels:
     app: nginx
   name: nginx
-  namespace: default
+  namespace: nginx
 spec:
   ports:
   - port: 80
@@ -71,11 +44,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: nginx
-  namespace: default
+  namespace: nginx
 spec:
   ingressClassName: nginx
   rules:
-  - host: "nginx.c4be376c-cf06-4e11-96da-2c0c60c11d2d.lb.civo.com" # CHANGE
+  - host: "nginx.<LB_DNS>" # CHANGE
     http:
       paths:
       - pathType: Prefix
@@ -136,7 +109,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: "redis.c4be376c-cf06-4e11-96da-2c0c60c11d2d.lb.civo.com" # CHANGE
+  - host: "redis.<LB_DNS>" # CHANGE
     http:
       paths:
       - pathType: Prefix
