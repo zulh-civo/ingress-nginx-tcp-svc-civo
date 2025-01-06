@@ -125,7 +125,7 @@ A short guide on how to use Ingress Nginx Helm Chart to expose the following por
     - hostname: 2d5a7170-b21b-4c78-a31f-c7c875eab1e6.lb.civo.com
     ```
 
-12. Open _manifests.yaml_ name in your favourite edit and change `<LB_DNS>` parts with hostname from previous step e.g.
+12. Open _manifests.yaml_ name in your favourite editor and change `<LB_DNS>` parts with hostname from previous step e.g.
 
     ```
     - host: "nginx.2d5a7170-b21b-4c78-a31f-c7c875eab1e6.lb.civo.com"
